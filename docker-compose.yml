@@ -1,0 +1,25 @@
+version: "2.0" 
+ 
+services: 
+    mysql_db: 
+        image: mysql:8 
+        ports: 
+            - "3306:3306" 
+        environment: 
+            MYSQL_ROOT_PASSWORD: root 
+    
+    flask_api:
+        container_name: flask_api
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        depends_on: 
+            - mysql_db 
+        ports: 
+            - "80:80" 
+        volumes: 
+            - images-api:/images_api
+
+volumes: 
+    images-api:
+
